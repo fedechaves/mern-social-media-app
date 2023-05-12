@@ -31,6 +31,7 @@ const MyPostWidget = ({ picturePath }) => {
   const [isImage, setIsImage] = useState(false);
   const [image, setImage] = useState(null);
   const [post, setPost] = useState("");
+  const [uploadRes, setUploadRes] = useState("");
   const { palette } = useTheme();
   const { _id } = useSelector((state) => state.user);
   const token = useSelector((state) => state.token);
@@ -42,11 +43,20 @@ const MyPostWidget = ({ picturePath }) => {
     const formData = new FormData();
     formData.append("userId", _id);
     formData.append("description", post);
+    formData.append("file", image);
+    formData.append("upload_preset", "upload");
     if (image) {
-      formData.append("picture", image);
-      formData.append("picturePath", image.name);
+      try {
+        const cualquierCosa = await axios.post(
+        "https://api.cloudinary.com/v1_1/dgxbhkxtd/image/upload", formData   
+        );
+        setUploadRes(cualquierCosa.data.url)
 
+      } catch (err) {
+          console.log(err) }
     }
+    console.log(uploadRes)
+    formData.append("picturePath", uploadRes);
 
     const response = await fetch(`http://localhost:3001/posts`, {
       method: "POST",
