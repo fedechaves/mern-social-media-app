@@ -55,7 +55,6 @@ const MyPostWidget = ({ picturePath }) => {
       } catch (err) {
           console.log(err) }
     }
-    console.log(uploadRes)
     formData.append("picturePath", uploadRes);
 
     const response = await fetch(`http://localhost:3001/posts`, {

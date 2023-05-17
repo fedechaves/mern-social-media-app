@@ -15,6 +15,7 @@ import { useDispatch } from "react-redux";
 import { setLogin } from "state";
 import Dropzone from "react-dropzone";
 import FlexBetween from "components/FlexBetween";
+import axios from "axios";
 
 const registerSchema = yup.object().shape({
   firstName: yup.string().required("required"),
@@ -23,7 +24,7 @@ const registerSchema = yup.object().shape({
   password: yup.string().required("required"),
   location: yup.string().required("required"),
   occupation: yup.string().required("required"),
-  picture: yup.string().required("required"),
+  file: yup.string().required("required"),
 });
 
 const loginSchema = yup.object().shape({
@@ -38,7 +39,7 @@ const initialValuesRegister = {
   password: "",
   location: "",
   occupation: "",
-  picture: "",
+  file: "",
 };
 
 const initialValuesLogin = {
@@ -48,6 +49,7 @@ const initialValuesLogin = {
 
 const Form = () => {
   const [pageType, setPageType] = useState("login");
+  const [uploadRes, setUploadRes] = useState("");
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -61,7 +63,20 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    formData.append("picturePath", values.picture.name);
+    formData.append("upload_preset", "upload");
+    if (values.file) {
+      try {
+        const cualquierCosa = await axios.post(
+        "https://api.cloudinary.com/v1_1/dgxbhkxtd/image/upload", formData   
+        );
+        setUploadRes(cualquierCosa.data.url)
+
+      } catch (err) {
+          console.log(err) }
+    }
+
+
+    formData.append("picturePath", uploadRes);
 
     const savedUserResponse = await fetch(
       "http://localhost:3001/auth/register",
@@ -183,7 +198,7 @@ const Form = () => {
                     acceptedFiles=".jpg,.jpeg,.png"
                     multiple={false}
                     onDrop={(acceptedFiles) =>
-                      setFieldValue("picture", acceptedFiles[0])
+                      setFieldValue("file", acceptedFiles[0])
                     }
                   >
                     {({ getRootProps, getInputProps }) => (
@@ -194,11 +209,11 @@ const Form = () => {
                         sx={{ "&:hover": { cursor: "pointer" } }}
                       >
                         <input {...getInputProps()} />
-                        {!values.picture ? (
+                        {!values.file ? (
                           <p>Add Picture Here</p>
                         ) : (
                           <FlexBetween>
-                            <Typography>{values.picture.name}</Typography>
+                            <Typography>{values.file.name}</Typography>
                             <EditOutlinedIcon />
                           </FlexBetween>
                         )}
