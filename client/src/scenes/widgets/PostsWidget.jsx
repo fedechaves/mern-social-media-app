@@ -7,7 +7,6 @@ const PostsWidget = ({ userId, isProfile = false }) => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.posts);
   const token = useSelector((state) => state.token);
-  console.log(posts)
 
   const getPosts = async () => {
     const response = await fetch("http://localhost:3001/posts", {
@@ -15,6 +14,7 @@ const PostsWidget = ({ userId, isProfile = false }) => {
       headers: { Authorization: `Bearer ${token}` },
     });
     const data = await response.json();
+    data.reverse()
     dispatch(setPosts({ posts: data }));
   };
 
