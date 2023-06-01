@@ -201,7 +201,7 @@ const Form = () => {
                       setFieldValue("file", acceptedFiles[0])
                     }
                   >
-                    {({ getRootProps, getInputProps }) => (
+                    {({ getRootProps, getInputProps }) => ( //FROM DROPEZONE
                       <Box
                         {...getRootProps()}
                         border={`2px dashed ${palette.primary.main}`}
