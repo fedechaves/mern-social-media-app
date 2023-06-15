@@ -78,12 +78,8 @@ const Form = () => {
 
     formData.append("picturePath", uploadRes);
 
-    const savedUserResponse = await fetch(
-      "https://impossible-overshirt-bull.cyclic.app/auth/register",
-      {
-        method: "POST",
-        body: formData,
-      }
+    const savedUserResponse = await axios.post(
+      "https://impossible-overshirt-bull.cyclic.app/auth/register", formData
     );
     const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
