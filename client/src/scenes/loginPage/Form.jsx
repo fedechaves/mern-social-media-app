@@ -50,7 +50,6 @@ const initialValuesLogin = {
 const Form = () => {
   const [pageType, setPageType] = useState("login");
   const [uploadRes, setUploadRes] = useState("");
-  const [savedUser, setSavedUser] = useState({})
   const { palette } = useTheme();
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -78,17 +77,15 @@ const Form = () => {
 
 
     formData.append("picturePath", uploadRes);
-    
-    try {
-      const savedUserResponse = await axios.post(
-        "https://impossible-overshirt-bull.cyclic.app/auth/register",
-         formData);
-         const savedUser = await savedUserResponse.json();
-         setSavedUser(savedUser)
-        }catch(err) { 
-          console.error(err)}
-    
-    
+
+    const savedUserResponse = await fetch(
+      "https://impossible-overshirt-bull.cyclic.app/auth/register",
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const savedUser = await savedUserResponse.json();
     onSubmitProps.resetForm();
 
     if (savedUser) {
