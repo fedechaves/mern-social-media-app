@@ -83,6 +83,7 @@ const Form = () => {
       {
         method: "POST",
         body: formData,
+        headers: "Content-Type,Authorization"
       }
     );
     const savedUser = await savedUserResponse.json();
