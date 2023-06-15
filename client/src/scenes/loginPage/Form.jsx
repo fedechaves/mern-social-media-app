@@ -83,6 +83,8 @@ const Form = () => {
       {
         method: "POST",
         body: formData,
+        origin: "https://impossible-overshirt-bull.cyclic.app",
+        headers: {  "Content-Type": "application/json" }
       }
     );
     const savedUser = await savedUserResponse.json();
