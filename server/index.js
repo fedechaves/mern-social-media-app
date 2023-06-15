@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 //CORS
 const corsOptions ={
-  origin:'https://landscape-social.vercel.app', 
+  origin:'*', 
   credentials:true,            //access-control-allow-credentials:true
   optionSuccessStatus:200,
 }
