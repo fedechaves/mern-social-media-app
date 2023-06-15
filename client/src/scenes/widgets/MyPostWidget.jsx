@@ -58,7 +58,7 @@ const MyPostWidget = ({ picturePath }) => {
 
     formData.append("picturePath", uploadRes);
     
-    const response = await fetch(`http://localhost:3001/posts`, {
+    const response = await fetch(`https://impossible-overshirt-bull.cyclic.app/posts`, {
       method: "POST",
       headers: { Authorization: `Bearer ${token}` },
       body: formData,
