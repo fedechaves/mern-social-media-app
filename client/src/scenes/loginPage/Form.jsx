@@ -83,8 +83,6 @@ const Form = () => {
       {
         method: "POST",
         body: formData,
-        headers: {
-          'Content-Type': 'application/json'}
       }
     );
     const savedUser = await savedUserResponse.json();
