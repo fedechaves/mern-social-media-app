@@ -31,18 +31,12 @@ app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 
 //CORS
-// const corsOptions ={
-//   origin:'https://landscape-social.vercel.app', 
-//   credentials:true,            //access-control-allow-credentials:true
-//   optionSuccessStatus:200,
-// }
-// app.use(cors(corsOptions));
-
-// CORS
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', 'https://landscape-social.vercel.app');
-  next();
-});
+const corsOptions ={
+  origin:'*', 
+  credentials:true,            //access-control-allow-credentials:true
+  optionSuccessStatus:200,
+}
+app.use(cors(corsOptions));
 
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
