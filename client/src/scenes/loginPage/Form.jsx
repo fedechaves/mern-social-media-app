@@ -82,7 +82,6 @@ const Form = () => {
       "https://impossible-overshirt-bull.cyclic.app/auth/register",
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: formData,
       }
     );
